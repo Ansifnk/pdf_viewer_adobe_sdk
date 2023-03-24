@@ -1,3 +1,5 @@
+import { saveAnnotation } from "../helperFunctions/saveAnnotation";
+
 class ViewSDKClient {
     constructor() {
         this.readyPromise = new Promise((resolve) => {
@@ -87,6 +89,9 @@ class ViewSDKClient {
         /* Define Save API Handler */
         const saveApiHandler = (metaData, content, options) => {
             console.log(metaData, content, options);
+           
+            saveAnnotation([metaData]) // inorder to save meta data to localstorage thus can retrieve annotations
+          
             return new Promise(resolve => {
                 /* Dummy implementation of Save API, replace with your business logic */
                 setTimeout(() => {
