@@ -2,8 +2,6 @@ import React from "react";
 import { saveAnnotation } from "../helperFunctions/saveAnnotation";
 import ViewSDKClient from "../utils/viewSdkClient";
 
-
-
 const previewConfigs = {
     embedMode: "FULL_WINDOW",
     showDownloadPDF: false,
@@ -14,6 +12,14 @@ const previewConfigs = {
     showBookmarks: false,
     includePDFAnnotations: true,
     enableAnnotationAPIs: true
+}
+
+const customFlags = {
+    showToolbar: true,
+    showCommentsPanel: false,
+    downloadWithAnnotations: true,
+    showToolsOnTextSelection: false,
+    printWithAnnotations: true,
 }
 
 const PdfReader = ({ url }) => {
@@ -44,6 +50,10 @@ const PdfReader = ({ url }) => {
 
                     adobeViewer.getAnnotationManager()
                         .then(annotationManager => {
+                            annotationManager.setConfig(customFlags)
+                                .then(() => console.log("Success"))
+                                .catch(error => console.log(error));
+
                             annotationManager.addAnnotations(list_of_annotations)
 
                                 .then(() => console.log("Success"))
